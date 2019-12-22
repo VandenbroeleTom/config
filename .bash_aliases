@@ -1,0 +1,1 @@
+alias finder="xdg-open ."
