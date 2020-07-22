@@ -14,11 +14,15 @@ set nobackup
 set undodir=~/vimfiles/undodir
 set undofile
 set incsearch
-set cmdheight=2
 set updatetime=50
+set visualbell
+set t_vb=
+set signcolumn=yes
 
 call plug#begin('~/vimfiles/plugged')
 
+Plug 'vim-scripts/vim-gitgutter'
+Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jremmen/vim-ripgrep'
 Plug 'morhetz/gruvbox'
@@ -27,6 +31,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mbbill/undotree'
 Plug 'vim-airline/vim-airline'
+Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
 
@@ -50,4 +55,14 @@ nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+nnoremap <C-b> :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <Leader>ps :Rg<SPACE>
+nmap <silent>gd <Plug>(coc-definition)
+nmap <Leader>rn <Plug>(coc-rename)
+nnoremap <leader>u :UndotreeShow<CR>
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
