@@ -1,8 +1,9 @@
-source C:\Program Files (x86)\Vim\_vimrc
+" source C:\Program Files (x86)\Vim\_vimrc
 
 syntax on
 
 set relativenumber
+set backspace=indent,eol,start
 set noerrorbells
 set tabstop=2 softtabstop=2
 set shiftwidth=2
@@ -22,13 +23,15 @@ set signcolumn=yes
 call plug#begin('~/vimfiles/plugged')
 
 Plug 'vim-scripts/vim-gitgutter'
+Plug 'airblade/vim-rooter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'jremmen/vim-ripgrep'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-fugitive'
 Plug 'leafgarland/typescript-vim'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
+Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
 Plug 'vim-airline/vim-airline'
 Plug 'editorconfig/editorconfig-vim'
@@ -42,13 +45,16 @@ if executable('rg')
   let g:rg_derive_root='true'
 endif
 
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let mapleader = " "
+
 let g:netrw_browse_split = 2
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
 
-let g:ctrlp_use_caching = 0
+let g:fzf_layout={ 'window': { 'width': 0.8, 'height': 0.8 } }
+let $FZF_DEFAULT_OPTS='--reverse'
+
+nnoremap <C-p> :Files<CR>
 
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -66,3 +72,6 @@ inoremap <silent><expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
