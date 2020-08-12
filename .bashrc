@@ -145,4 +145,6 @@ export PS1="$PS1\$(git_branch) "
 
 
 # Aliases
-source ~/.bash_aliases
+if test "~/.bash_aliases"; then
+  source ~/.bash_aliases
+fi
