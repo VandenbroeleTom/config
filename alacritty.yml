@@ -1,0 +1,14 @@
+window:
+  padding:
+    x: 10
+    y: 10
+font:
+  size: 12
+key_bindings:
+  - { key: T, mods: Control|Shift, action: SpawnNewInstance }
+working_directory: C:\Users\vande
+shell:
+  program: C:\Program Files\Git\usr\bin\bash.exe
+  args:
+    - -i
+    - -l
