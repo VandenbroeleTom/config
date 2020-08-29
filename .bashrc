@@ -43,7 +43,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-force_color_prompt=yes
+#force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -57,7 +57,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -66,7 +66,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1\n"
     ;;
 *)
     ;;
@@ -85,10 +85,10 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -alhF'
+alias ll='ls -ahlF'
 alias la='ls -A'
 alias l='ls -CF'
 
@@ -116,35 +116,47 @@ if ! shopt -oq posix; then
   fi
 fi
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# PHPBrew
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
 
-
-# ALIASES
-alias cls=clear
-alias bat="cat /sys/class/power_supply/BAT0/capacity"
-
-alias drupal="/var/www/inline-skate-results/vendor/bin/drupal"
-
-export PATH="$PATH:/snap/bin/"
-export PATH="$PATH:$HOME/.config/composer/vendor/bin"
-
-export PATH=$PATH:/home/tom/bin
-export PATH=$PATH:/home/tom/go/bin
-
-# Install Ruby Gems to ~/gems
-export GEM_HOME="$HOME/gems"
-export PATH="$PATH:$HOME/gems/bin"
-
-
-# Git branch in prompt
-git_branch() {
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
-}
-
-export PS1="$PS1\$(git_branch) "
-
-
-# Aliases
-if test "~/.bash_aliases"; then
-  source ~/.bash_aliases
+# GIT completion
+if [ -f ~/.git-completion.bash ]; then
+    source ~/.git-completion.bash
 fi
+
+source "$HOME/.console/console.rc" 2> /dev/null
+
+export PATH="$PATH:$HOME/.composer/vendor/bin"
+
+# Drush 
+if [ -f $HOME/.drush/drush.bashrc ]; then
+  source "$HOME/.drush/drush.bashrc"
+  . $HOME/.drush/drush.complete.sh
+fi
+
+
+# Scripts
+export PATH="$PATH:$HOME/scripts/"
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# Laravel autocomplete
+_artisan()
+{
+	COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
+	COMMANDS=`php artisan --raw --no-ansi list | sed "s/[[:space:]].*//g"`
+	COMPREPLY=(`compgen -W "$COMMANDS" -- "${COMP_WORDS[COMP_CWORD]}"`)
+	return 0
+}
+complete -F _artisan art
+complete -F _artisan artisan
+
+export PATH="$PATH:$HOME/.nvm/versions/node/v10.20.1/bin/"
+export PATH="$PATH:$HOME/bin"
+
+stty -ixon
