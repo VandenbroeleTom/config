@@ -29,6 +29,7 @@ set wildignore
 
 call plug#begin('~/vimfiles/plugged')
 
+  Plug 'mattn/emmet-vim'
   Plug 'airblade/vim-rooter'
   Plug 'jiangmiao/auto-pairs'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -72,14 +73,14 @@ autocmd BufNewFile,BufRead *.html.twig set filetype=html
 autocmd BufNewFile,BufRead *.module set syntax=php
 autocmd BufNewFile,BufRead *.module set filetype=php
 
+inoremap <S-Tab> <C-d>
+inoremap <C-c> <ESC>
+inoremap <C-s> <ESC>:w<CR>
+
 nnoremap <leader>o o<ESC>k
 nnoremap <leader>O O<ESC>j
 nnoremap <C-p> :GFiles --cached<CR>
 nnoremap <S-Tab> <<
-inoremap <S-Tab> <C-d>
-
-inoremap <C-c> <ESC>
-inoremap <C-s> <ESC>:w<CR>
 nnoremap <C-s> <ESC>:w<CR>
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -91,6 +92,10 @@ nnoremap <Leader>ps :Rg<SPACE>
 " Visual mode
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
+
+" Emmet
+let g:user_emmet_expandabbr_key='<Tab>'
+autocmd FileType html imap <buffer> <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
 " COC
 nmap <silent>gd <Plug>(coc-definition)
