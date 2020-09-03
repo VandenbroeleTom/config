@@ -13,6 +13,7 @@ set tabstop=2 softtabstop=2
 set shiftwidth=2
 set expandtab
 set smartindent
+set ignorecase
 set smartcase
 set noswapfile
 set undodir=~/vimfiles/undodir
@@ -61,9 +62,19 @@ let g:netrw_liststyle = 3
 let g:fzf_layout={ 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
 
+" Laravel
+autocmd BufNewFile,BufRead *.blade.php set syntax=html
+autocmd BufNewFile,BufRead *.blade.php set filetype=html
+
+" Drupal
+autocmd BufNewFile,BufRead *.html.twig set syntax=html
+autocmd BufNewFile,BufRead *.html.twig set filetype=html
+autocmd BufNewFile,BufRead *.module set syntax=php
+autocmd BufNewFile,BufRead *.module set filetype=php
+
 nnoremap <leader>o o<ESC>k
 nnoremap <leader>O O<ESC>j
-nnoremap <C-p> :GFiles --cached --others<CR>
+nnoremap <C-p> :GFiles --cached<CR>
 nnoremap <S-Tab> <<
 inoremap <S-Tab> <C-d>
 
@@ -74,7 +85,7 @@ nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
-nnoremap <C-b> :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+nnoremap <A-&> :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <Leader>ps :Rg<SPACE>
 
 " Visual mode
