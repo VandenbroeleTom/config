@@ -141,11 +141,6 @@ source "$HOME/.console/console.rc" 2> /dev/null
 
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 
-# Drush 
-source "$HOME/.drush/drush.bashrc"
-. $HOME/.drush/drush.complete.sh
-
-
 # Scripts
 export PATH="$PATH:$HOME/scripts/"
 
@@ -167,7 +162,35 @@ _artisan()
 complete -F _artisan art
 complete -F _artisan artisan
 
-export PATH="$PATH:$HOME/.nvm/versions/node/v10.20.1/bin/"
+export PATH="$PATH:$HOME/.nvm/versions/node/v15.0.1/bin/"
 export PATH="$PATH:$HOME/bin"
 
 stty -ixon
+
+export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
+export LIBGL_ALWAYS_INDIRECT=1
+
+function landoify {
+  alias art="lando artisan"
+  alias artisan="lando artisan"
+	alias drush="lando drush"
+	alias test="lando test"
+	alias drupal="lando drupal"
+	alias composer="lando composer"
+	alias grunt="lando grunt"
+	alias gulp="lando gulp"
+	alias npx="lando npx"
+	alias phpunit="lando phpunit"
+	alias wp="lando wp"
+	alias yarn="lando yarn"
+	# Add any other aliases you want based on your environment...
+
+	# Modify this as required for your prompt.
+	if ! grep -qi lando <<< $PS1; then
+		PS1="[Lando] $PS1"
+	fi
+}
+
+landoify
+export EDITOR=vim
+export PATH="$HOME/.symfony/bin:$PATH"
