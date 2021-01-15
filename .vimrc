@@ -3,6 +3,7 @@
 syntax on
 
 set backspace=indent,eol,start
+set mouse=a
 set number relativenumber
 set noerrorbells
 set tabstop=2 softtabstop=2
@@ -58,7 +59,7 @@ let g:netrw_winsize = 25
 let g:fzf_layout={ 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
 
-nnoremap <C-p> :Files<CR>
+nnoremap <C-p> :GFiles<CR>
 
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <C-c>:w<CR>
@@ -113,5 +114,8 @@ nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
 
 """ COC
