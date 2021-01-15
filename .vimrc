@@ -34,6 +34,7 @@ Plug 'mbbill/undotree'
 Plug 'vim-airline/vim-airline'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 
 call plug#end()
 
@@ -55,7 +56,7 @@ let g:netrw_winsize = 25
 let g:fzf_layout={ 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
 
-nnoremap <C-p> :Files<CR>
+nnoremap <C-p> :GFiles<CR>
 
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <C-c>:w<CR>
