@@ -27,3 +27,5 @@ alias down="docker-compose down"
 # Vim
 alias vim="nvim"
 alias v="vim"
+
+alias bat="cat /sys/class/power_supply/BAT0/capacity"

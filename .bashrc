@@ -116,9 +116,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# PHPBrew
-[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
-
 # Git integration
 # Add git branch if its present to PS1
 parse_git_branch() {
@@ -132,65 +129,16 @@ if [ -f ~/.git-completion.bash ]; then
     source ~/.git-completion.bash
 fi
 
-# Add SSH Agent
-eval `ssh-agent -s`
-ssh-add
-
-alias cls="clear"
-source "$HOME/.console/console.rc" 2> /dev/null
-
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$PATH:$HOME/.composer/vendor/bin"
-
-# Scripts
-export PATH="$PATH:$HOME/scripts/"
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-# Laravel autocomplete
-_artisan()
-{
-	COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
-	COMMANDS=`php artisan --raw --no-ansi list | sed "s/[[:space:]].*//g"`
-	COMPREPLY=(`compgen -W "$COMMANDS" -- "${COMP_WORDS[COMP_CWORD]}"`)
-	return 0
-}
-complete -F _artisan art
-complete -F _artisan artisan
-
-export PATH="$PATH:$HOME/.nvm/versions/node/v15.0.1/bin/"
 export PATH="$PATH:$HOME/bin"
 
 stty -ixon
 
-export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
-export LIBGL_ALWAYS_INDIRECT=1
-
-function landoify {
-  alias art="lando artisan"
-  alias artisan="lando artisan"
-	alias drush="lando drush"
-	alias test="lando test"
-	alias drupal="lando drupal"
-	alias composer="lando composer"
-	alias grunt="lando grunt"
-	alias gulp="lando gulp"
-	alias npx="lando npx"
-	alias phpunit="lando phpunit"
-	alias wp="lando wp"
-	alias yarn="lando yarn"
-	# Add any other aliases you want based on your environment...
-
-	# Modify this as required for your prompt.
-	if ! grep -qi lando <<< $PS1; then
-		PS1="[Lando] $PS1"
-	fi
-}
-
-landoify
 export EDITOR=vim
-export PATH="$HOME/.symfony/bin:$PATH"
