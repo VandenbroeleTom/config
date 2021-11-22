@@ -11,6 +11,7 @@ set smartindent
 set smartcase
 set noswapfile
 set nobackup
+set nowritebackup
 set nohlsearch
 " set undodir=~/vimfiles/undodir
 set undodir=~/.vim/undodir
@@ -54,8 +55,9 @@ nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 
+lua require('lsp_config')
+lua require('telescope_config')
+
 """ Telescope
 nnoremap <C-p> :Telescope git_files<CR>
 nnoremap <C-n> :Telescope find_files<CR>
-
-lua require('lsp_config')
