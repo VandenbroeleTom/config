@@ -116,6 +116,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Add SSH Agent
+eval `ssh-agent -s`
+ssh-add
+
 # Git integration
 # Add git branch if its present to PS1
 parse_git_branch() {
@@ -141,4 +145,45 @@ export PATH="$PATH:$HOME/bin"
 
 stty -ixon
 
-export EDITOR=vim
+export EDITOR=nvim
+export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
+export LIBGL_ALWAYS_INDIRECT=1
+
+function landoify {
+  alias art="lando artisan"
+  alias artisan="lando artisan"
+	alias drush="lando drush"
+	alias drupal="lando drupal"
+	alias grunt="lando grunt"
+	alias gulp="lando gulp"
+	alias npx="lando npx"
+	alias phpunit="lando phpunit"
+	alias wp="lando wp"
+	alias yarn="lando yarn"
+	# Add any other aliases you want based on your environment...
+
+	# Modify this as required for your prompt.
+	if ! grep -qi lando <<< $PS1; then
+		PS1="[Lando] $PS1"
+	fi
+}
+
+landoify
+export PATH="$HOME/.symfony/bin:$PATH"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/dms/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/dms/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/dms/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/dms/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+export COMPOSER_POOL_OPTIMIZER=1
