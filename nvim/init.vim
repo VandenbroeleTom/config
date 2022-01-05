@@ -1,6 +1,9 @@
 syntax on
 
+set splitright
+set splitbelow
 set backspace=indent,eol,start
+set scrolloff=10
 set mouse=a
 set number relativenumber
 set noerrorbells
@@ -8,6 +11,7 @@ set tabstop=2 softtabstop=2
 set shiftwidth=2
 set expandtab
 set smartindent
+set ignorecase
 set smartcase
 set noswapfile
 set nobackup
@@ -33,9 +37,11 @@ Plug 'editorconfig/editorconfig-vim'
 " Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
+Plug 'APZelos/blamer.nvim'
 
 call plug#end()
 
@@ -43,9 +49,8 @@ colorscheme gruvbox
 set background=dark
 
 let mapleader = " "
+let g:rooter_manual_only = 1
 
-let g:netrw_banner = 0
-let g:netrw_winsize = 25
 " let g:coq_settings = { 'auto_start': v:true, 'keymap': { 'pre_select': v:true } }
 
 nnoremap <C-s> :w<CR>
@@ -68,11 +73,13 @@ let g:coc_global_extensions = [
   \'coc-html',
   \'coc-git',
   \'coc-css',
-  \'coc-yaml',
   \'coc-prettier',
+  \'coc-emmet',
   \]
 
 autocmd FileType scss setl iskeyword+=@-@
+autocmd FileType twig setl filetype=html
+autocmd FileType php let b:AutoPairs = AutoPairsDefine({'<?': ''})
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -89,6 +96,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -107,12 +115,34 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " lua require('lsp_config')
-lua require('telescope_config')
+lua << EOF
+
+require('telescope').setup {
+  pickers = {
+    find_files = {
+      hidden = true,
+      no_ignore = true
+    }
+  }
+}
+
+require('telescope').load_extension('fzf')
+EOF
 
 """ Telescope
 nnoremap <C-p> :Telescope git_files<CR>
 nnoremap <C-n> :Telescope find_files<CR>
+nnoremap <C-f> :lua require("telescope.builtin").live_grep()<CR>
 
+" NVIMTree
+let g:nvim_tree_quit_on_open = 1
 lua << EOF
-require('nvim-tree').setup()
+require('nvim-tree').setup({
+  update_focused_file = {
+    enable = true
+  }
+})
 EOF
+
+" Blamer
+let g:blamer_enabled = 1
