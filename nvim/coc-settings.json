@@ -1,5 +1,11 @@
 {
   "suggest.noselect": false,
   "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "javascript"],
-  "intelephense.format.braces": "k&r"
+  "intelephense.format.braces": "k&r",
+  "coc.preferences.formatOnType": true,
+  "prettier.eslintIntegration": true,
+  "vetur.format.defaultFormatter.html": "prettier",
+  "vetur.format.defaultFormatter.css": "prettier",
+  "vetur.format.defaultFormatter.js": "prettier-eslint"
 }
+

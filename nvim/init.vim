@@ -28,13 +28,15 @@ set iskeyword=@,48-57,_,192-255,$
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'airblade/vim-rooter'
-Plug 'jiangmiao/auto-pairs'
-Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
-Plug 'editorconfig/editorconfig-vim'
-" Plug 'neovim/nvim-lspconfig'
 " Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+" Plug 'neovim/nvim-lspconfig'
+Plug 'airblade/vim-rooter'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'github/copilot.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'morhetz/gruvbox'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
@@ -42,8 +44,13 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-commentary'
 Plug 'APZelos/blamer.nvim'
+Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
+Plug 'tpope/vim-commentary'
+Plug 'vim-airline/vim-airline'
 
 call plug#end()
+
+let g:rooter_patterns = ['.git']
 
 colorscheme gruvbox
 set background=dark
@@ -63,23 +70,28 @@ nnoremap <leader>l :wincmd l<CR>
 nnoremap <M-&> :NvimTreeToggle<CR>
 
 let g:coc_global_extensions = [
-  \'@yaegassy/coc-intelephense',
-  \'coc-markdownlint',
-  \'coc-highlight',
-  \'coc-vetur',
+  \'coc-css',
+  \'coc-git',
   \'coc-go',
-  \'coc-python',
-  \'coc-json',
+  \'coc-highlight',
   \'coc-html',
   \'coc-git',
   \'coc-css',
   \'coc-prettier',
   \'coc-emmet',
+  \'coc-json',
+  \'coc-markdownlint',
+  \'coc-phpactor',
+  \'coc-prettier',
+  \'coc-python',
+  \'coc-vetur',
+  \'coc-yaml',
   \]
 
 autocmd FileType scss setl iskeyword+=@-@
 autocmd FileType twig setl filetype=html
 autocmd FileType php let b:AutoPairs = AutoPairsDefine({'<?': ''})
+autocmd BufNewFile,BufRead *.blade.php set filetype=blade
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -113,6 +125,13 @@ endfunction
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 " lua require('lsp_config')
 lua << EOF
