@@ -169,7 +169,6 @@ function landoify {
 	fi
 }
 
-landoify
 export PATH="$HOME/.symfony/bin:$PATH"
 
 # >>> conda initialize >>>
@@ -188,3 +187,10 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 export COMPOSER_POOL_OPTIMIZER=1
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+
+if [ -f /home/dms/.phpbrew/bashrc ]; then
+  # source /home/dms/.phpbrew/bashrc
+  export PHPBREW_SET_PROMPT=1
+  export PHPBREW_RC_ENABLE=1
+fi
