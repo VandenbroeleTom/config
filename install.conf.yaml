@@ -10,6 +10,7 @@
     ~/.bashrc: bashrc
     ~/.bash_aliases: bash_aliases
     '/etc/apache2/apache2.conf': apache2.conf
+    '/var/www/install.php': install.php
 
 - create:
     - ~/.vim/undodir

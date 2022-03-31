@@ -138,7 +138,7 @@ export PATH="$PATH:$HOME/.composer/vendor/bin"
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="$PATH:$HOME/bin"
@@ -193,4 +193,14 @@ if [ -f /home/dms/.phpbrew/bashrc ]; then
   # source /home/dms/.phpbrew/bashrc
   export PHPBREW_SET_PROMPT=1
   export PHPBREW_RC_ENABLE=1
+fi
+
+if [ -d /home/dms/go/bin ]; then
+  export PATH="$PATH:/home/dms/go/bin"
+fi
+
+if [ -f /mnt/c/Users/tmve/bin/PhpStorm.cmd ]; then
+  pstorm() {
+    cmd.exe "/mnt/c/Users/tmve/bin/PhpStorm.cmd" $(wslpath -w ${1:-$(pwd)})
+  }
 fi

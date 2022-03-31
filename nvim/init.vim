@@ -69,6 +69,7 @@ nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <M-&> :NvimTreeToggle<CR>
 
+let g:coc_node_path = '/home/dms/.nvm/versions/node/v17.1.0/bin/node'
 let g:coc_global_extensions = [
   \'coc-css',
   \'coc-git',
