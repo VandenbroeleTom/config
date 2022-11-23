@@ -9,8 +9,8 @@
     $settings .="
 \$databases['default']['default'] = [
   'database' => '$database',
-  'username' => 'drupal8',
-  'password' => 'drupal8',
+  'username' => 'root',
+  'password' => 'root',
   'host' => 'localhost',
   'port' => '3306',
   'driver' => 'mysql',
@@ -34,6 +34,8 @@ if (file_exists(\$app_root . '/' . \$site_path . '/settings.local.php')) {
 \$settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
 \$settings['cache']['bins']['page'] = 'cache.backend.null';
 \$config['advagg.settings']['enabled'] = false;
+\$config['language.negotiation']['url']['source'] = 'path_prefix';
+\$config['captcha.settings']['default_challenge'] = 'captcha/Math';
 \$config['dms_theme.settings']['breakpoints'] = TRUE;\n";
     file_put_contents('web/sites/default/settings.local.php', $local_settings);
     echo "Set settings.local.php\n";

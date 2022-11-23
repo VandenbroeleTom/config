@@ -204,3 +204,8 @@ if [ -f /mnt/c/Users/tmve/bin/PhpStorm.cmd ]; then
     cmd.exe "/mnt/c/Users/tmve/bin/PhpStorm.cmd" $(wslpath -w ${1:-$(pwd)})
   }
 fi
+
+export CHROME_EXECUTABLE="/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+export PATH=/home/dms/.local/bin:$PATH
+
+nvm use node
