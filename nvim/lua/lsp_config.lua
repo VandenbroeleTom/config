@@ -42,6 +42,12 @@ end
 
 require('cmp').setup({
 
+  snippet = {
+    expand = function (args)
+      vim.fn['vsnip#anonymous'](args.body)
+    end
+  },
+
   mapping = require('cmp').mapping.preset.insert({
     ['<C-Space>'] = require('cmp').mapping.complete(),
     ['<CR>'] = require('cmp').mapping.confirm({ select = false }),

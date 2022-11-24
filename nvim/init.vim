@@ -28,6 +28,8 @@ set iskeyword=@,48-57,_,192-255,$
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'neovim/nvim-lspconfig'
@@ -35,15 +37,12 @@ Plug 'APZelos/blamer.nvim'
 Plug 'airblade/vim-rooter'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'github/copilot.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'morhetz/gruvbox'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 Plug 'tpope/vim-commentary'
 " Plug 'vim-airline/vim-airline'
 call plug#end()
