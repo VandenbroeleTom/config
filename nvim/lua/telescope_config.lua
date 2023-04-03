@@ -7,4 +7,6 @@ require('telescope').setup {
   }
 }
 
-require('telescope').load_extension('fzf')
+vim.api.nvim_set_keymap('n', '<C-p>', ':Telescope git_files<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<C-n>', ':Telescope find_files<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<C-n>', ':lua require("telescope.builtin").live_grep()<CR>', { silent = true, noremap = true })

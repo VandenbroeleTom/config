@@ -2,7 +2,8 @@
 <?php
 
     $database = basename(getcwd());
-    exec('mysql -u root -proot -e "create database ' . $database . '"');
+    exec("mysql -u root -proot -e 'create database `$database`'");
+    exec("mkdir -p web/sites/default/files/translations");
 
     // settings.php
     $settings = file_get_contents('web/sites/default/default.settings.php');

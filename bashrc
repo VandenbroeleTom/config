@@ -43,7 +43,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -66,7 +66,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1\n"
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
 *)
     ;;
@@ -116,96 +116,17 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Add SSH Agent
-eval `ssh-agent -s`
-ssh-add
-
-# Git integration
-# Add git branch if its present to PS1
-parse_git_branch() {
- git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
-}
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]\n\$ '
-unset color_prompt force_color_prompt
-
-# GIT completion
-if [ -f ~/.git-completion.bash ]; then
-    source ~/.git-completion.bash
-fi
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="$PATH:$HOME/.composer/vendor/bin"
-
-# NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/.vim/plugged/phpactor/bin"
-
-stty -ixon
-
-export EDITOR=nvim
-export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
-export LIBGL_ALWAYS_INDIRECT=1
-
-function landoify {
-  alias art="lando artisan"
-  alias artisan="lando artisan"
-	alias drush="lando drush"
-	alias drupal="lando drupal"
-	alias grunt="lando grunt"
-	alias gulp="lando gulp"
-	alias npx="lando npx"
-	alias phpunit="lando phpunit"
-	alias wp="lando wp"
-	alias yarn="lando yarn"
-	# Add any other aliases you want based on your environment...
-
-	# Modify this as required for your prompt.
-	if ! grep -qi lando <<< $PS1; then
-		PS1="[Lando] $PS1"
-	fi
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
+export PS1="\u@\h \[\e[32m\]\w \[\e[91m\]\$(parse_git_branch)\[\e[00m\]$ "
 
-export PATH="$HOME/.symfony/bin:$PATH"
+export COMPOSER_NO_AUDIT=1
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/dms/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/dms/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/dms/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/dms/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+export PATH="$PATH:$HOME/go/bin"
 
-export COMPOSER_POOL_OPTIMIZER=1
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-
-if [ -f /home/dms/.phpbrew/bashrc ]; then
-  # source /home/dms/.phpbrew/bashrc
-  export PHPBREW_SET_PROMPT=1
-  export PHPBREW_RC_ENABLE=1
-fi
-
-if [ -d /home/dms/go/bin ]; then
-  export PATH="$PATH:/home/dms/go/bin"
-fi
-
-if [ -f /mnt/c/Users/tmve/bin/PhpStorm.cmd ]; then
-  pstorm() {
-    cmd.exe "/mnt/c/Users/tmve/bin/PhpStorm.cmd" $(wslpath -w ${1:-$(pwd)})
-  }
-fi
-
-export CHROME_EXECUTABLE="/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
-export PATH=/home/dms/.local/bin:$PATH
-
-nvm use node
+export EDITOR="nvim"

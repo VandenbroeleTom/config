@@ -9,9 +9,11 @@
     ~/.config/nvim: nvim
     ~/.bashrc: bashrc
     ~/.bash_aliases: bash_aliases
+    ~/.gitconfig: gitconfig
     '/etc/apache2/apache2.conf': apache2.conf
     '/var/www/install.php': install.php
-    '~/.gitconfig': gitconfig
+    '/var/www/login.sh': login.sh
+    '/var/www/change-php.sh': change-php.sh
 
 - create:
     - ~/.vim/undodir

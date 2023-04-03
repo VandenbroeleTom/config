@@ -1,20 +1,9 @@
-[core]
-	excludesFile = /home/dms/.gitignore
 [user]
 	name = "Tom Vandenbroele"
 	email = "tom.vandenbroele@dms.be"
 [alias]
-	co = checkout
-	br = branch
-	ci = commit
-	st = status
 	unstage = "reset HEAD"
-	last = "log -l HEAD"
-	branch-name = "!git rev-parse --abbrev-ref HEAD"
 	publish = "!git push -u origin $(git branch-name)"
 	unpublish = "!git push origin :$(git branch-name)"
-	diffc = "diff --cached"
-	delete-merged-branches = "!git co production && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
-  fix = "!${EDITOR} $(git diff --name-only --relative --diff-filter=U | uniq)"
 [pull]
 	rebase = false
