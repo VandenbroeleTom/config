@@ -2,7 +2,6 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.backspace = [[indent,eol,start]]
 vim.opt.scrolloff = 10
-vim.opt.mouse = a
 vim.opt.number = true
 vim.opt.relativenumber = true
 -- vim.opt.noerrorbells = true
@@ -17,13 +16,13 @@ vim.opt.smartcase = true
 -- vim.opt.nobackup = true
 -- vim.opt.nowritebackup = true
 -- vim.opt.nohlsearch = true
-vim.opt.undodir = '~/.vim/undodir'
+vim.opt.undodir = os.getenv('HOME') .. '/.vim/undodir'
 vim.opt.undofile = true
 vim.opt.incsearch = true
 vim.opt.updatetime = 50
 vim.opt.visualbell = true
 -- vim.opt.t_vb = ''
--- vim.opt.signcolumn = true
+vim.opt.signcolumn = 'number'
 vim.opt.iskeyword = '@,48-57,_,192-255,$'
 
 vim.cmd('colorscheme gruvbox')
@@ -41,6 +40,12 @@ vim.api.nvim_set_keymap('n', '<leader>k', ':wincmd k<CR>', { silent = true, nore
 vim.api.nvim_set_keymap('n', '<leader>l', ':wincmd l<CR>', { silent = true, noremap = true })
 
 vim.api.nvim_set_keymap('n', '<M-&>', ':NvimTreeToggle<CR>', { silent = true, noremap = true })
+
+vim.filetype.add({
+  extension = {
+    twig = 'html',
+  },
+})
 
 require('plugins')
 require('lsp_config')

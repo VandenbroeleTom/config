@@ -31,6 +31,7 @@ local servers = {
   'cssls', -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#cssls
   'html', -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#html
   'jsonls', -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
+  'emmet_ls', -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#emmet_ls
 }
 
 for _, lsp in ipairs(servers) do
