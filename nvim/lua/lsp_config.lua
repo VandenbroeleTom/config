@@ -27,17 +27,40 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = {
-  'intelephense',
+  'intelephense', -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#intelephense
   'cssls', -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#cssls
   'html', -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#html
   'jsonls', -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#jsonls
-  'emmet_ls', -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#emmet_ls
+  -- 'emmet_ls', -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#emmet_ls
 }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup({
     on_attach = on_attach,
     capabilities = capabilities,
+    settings = {
+      intelephense = {
+        files = {
+          associations = {
+            "*.inc",
+            "*.theme",
+            "*.install",
+            "*.module",
+            "*.profile",
+            "*.php",
+            "*.phtml"
+          },
+        },
+        environment = {
+          includePaths = {
+            "web/core/includes",
+          },
+        },
+        format = {
+          braces = "k&r"
+        }
+      },
+    },
   })
 end
 

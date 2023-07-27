@@ -17,6 +17,7 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/vim-vsnip'
   use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'neovim/nvim-lspconfig'
   use 'apzelos/blamer.nvim'
@@ -26,7 +27,9 @@ return require('packer').startup(function(use)
   use 'kyazdani42/nvim-tree.lua'
   use 'morhetz/gruvbox'
   use 'nvim-lua/plenary.nvim'
+
   use 'nvim-telescope/telescope.nvim'
+
   use 'tpope/vim-commentary'
   use 'mhinz/vim-signify'
 

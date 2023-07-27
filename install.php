@@ -38,6 +38,9 @@ if (file_exists(\$app_root . '/' . \$site_path . '/settings.local.php')) {
 \$config['language.negotiation']['url']['source'] = 'path_prefix';
 \$config['captcha.settings']['default_challenge'] = 'captcha/Math';
 \$config['stage_file_proxy.settings']['origin'] = '';
-\$config['dms_theme.settings']['breakpoints'] = TRUE;\n";
+\$config['dms_theme.settings']['breakpoints'] = TRUE;
+\$config['seckit.settings']['seckit_xss']['csp']['checkbox'] = FALSE;
+";
+
     file_put_contents('web/sites/default/settings.local.php', $local_settings);
     echo "Set settings.local.php\n";

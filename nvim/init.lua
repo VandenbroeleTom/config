@@ -25,6 +25,8 @@ vim.opt.visualbell = true
 vim.opt.signcolumn = 'number'
 vim.opt.iskeyword = '@,48-57,_,192-255,$'
 
+vim.wo.wrap = false
+
 vim.cmd('colorscheme gruvbox')
 
 vim.g.mapleader = [[ ]]
